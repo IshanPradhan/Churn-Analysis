@@ -56,4 +56,5 @@ pandas
 numpy
 joblib
 scipy
+streamlit
 ```
