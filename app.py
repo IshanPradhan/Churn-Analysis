@@ -5,7 +5,6 @@ import joblib
 model = joblib.load('churn_model.pkl')
 expected_columns = joblib.load('model_columns.pkl')
 
-
 st.title("Churn Prediction App")
 st.markdown("Provide the following details ")
 
