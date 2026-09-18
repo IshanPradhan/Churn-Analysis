@@ -3,8 +3,8 @@ import pandas as pd
 import joblib
 
 model = joblib.load('churn_model.pkl')
-scaler = joblib.load('scaler.pkl')
 expected_columns = joblib.load('model_columns.pkl')
+
 
 st.title("Churn Prediction App")
 st.markdown("Provide the following details ")
@@ -58,14 +58,19 @@ if st.button("Predict"):
 
     input_df = pd.DataFrame([raw_input])
 
-    for col in expected_columns:
-        if col not in input_df.columns:
-            input_df[col] = 0
+    binary_cols = ["Partner", "Dependents", "PhoneService", "PaperlessBilling"]
+    for col in binary_cols:
+        input_df[col] = input_df[col].map({"Yes": 1, "No": 0})
 
-    input_df = input_df[expected_columns]
+    multi_cat_cols = ["gender", "MultipleLines", "InternetService", "OnlineSecurity",
+                       "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV",
+                       "StreamingMovies", "Contract", "PaymentMethod"]
+    input_df = pd.get_dummies(input_df, columns=multi_cat_cols)
 
-    scaled_input = scaler.transform(input_df)
+    input_df = input_df.reindex(columns=expected_columns, fill_value=0)
 
-    prediction = model.predict(scaled_input)[0]
+    prediction = model.predict(input_df)[0]
+    probability = model.predict_proba(input_df)[0][1]
 
     st.write(f"Churn Prediction: {'Yes' if prediction == 1 else 'No'}")
+    st.write(f"Churn Probability: {probability:.1%}")
