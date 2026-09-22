@@ -30,7 +30,7 @@ Feature scaling (`StandardScaler`) was applied only where needed (LogisticRegres
  
 The best model was selected by **Test AUC** and saved with `joblib`, along with the training column order (`model_columns.pkl`) needed to correctly align incoming API requests after one-hot encoding.
 
-## Running Locally for swagger documentation
+## Running Locally
  
 ### 1. Install dependencies
 ```bash
@@ -46,16 +46,6 @@ uvicorn main:app --reload
 ```
 Interactive docs available at `http://127.0.0.1:8000/docs`.
 
-## Running the app locally
-
-### 1. Run app.py
-```bash
-cd /path_to_folder/
-python ./app.py
-```
-
-### 2. Go to http://localhost:8501/ in browser to play the app if it doesn't auto start the browser
-
 ## Requirements
  
 ```
@@ -67,4 +57,5 @@ numpy
 joblib
 scipy
 streamlit
+mlflow
 ```
