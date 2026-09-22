@@ -1,0 +1,4 @@
+{
+  "RandomizedSearchCV_score-2_X_test": "RandomizedSearchCV.score(X=X_test, y=y_test)",
+  "RandomizedSearchCV_score_X_test": "RandomizedSearchCV.score(X=X_test, y=y_test)"
+}
